@@ -15,10 +15,10 @@ function Sidebar(){
             <div className="sidebarMenu">
                 <h3 className="sidebarTitle">Dashboard</h3>
                 <ul className="sidebarList">
-                <li className="sidebarListItem active">
+              <Link to="/home" > <li className="sidebarListItem active">
                         <MdLineStyle className="sidebarIcon"/>
                         Home
-                    </li>
+                    </li></Link> 
                     <li className="sidebarListItem" >
                         <MdTimeline  className="sidebarIcon"/>
                         Analytics
@@ -64,10 +64,10 @@ function Sidebar(){
                         <FcFeedback  className="sidebarIcon"/>
                         Feedback
                     </li>
-                    <li className="sidebarListItem">
+                   <Link to="/messages"> <li className="sidebarListItem">
                         <BiMessageSquareDetail  className="sidebarIcon"/>
                         Messages
-                    </li>
+                    </li></Link>
                 </ul>
             </div>
             <div className="sidebarMenu">

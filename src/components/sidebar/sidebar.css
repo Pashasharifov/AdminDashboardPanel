@@ -18,7 +18,10 @@
 }
 .sidebarList{
     list-style: none;
-    padding: 5px;
+    padding: 5px; 
+}
+.sidebarList Link{
+    text-decoration: dotted;
 }
 
 .sidebarListItem{
@@ -27,10 +30,12 @@
     padding: 5px;
     display: flex;
     align-items: center;
+    
     border-radius: 10px;
 }
 .sidebarListItem.active , .sidebarListItem:hover{
     background-color: rgb(228, 228, 250);
+   
 }
 .sidebarIcon{
     margin-right: 5px;

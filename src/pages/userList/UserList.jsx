@@ -3,66 +3,78 @@ import { DataGrid } from '@mui/x-data-grid';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Link } from "react-router-dom";
 import { userRows } from "../../dummyData";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import Cookies from "universal-cookie";
+
 
 function UserList(){
-    const[data,setData]=useState(userRows)
-    const handleDelete=(id)=>{
-        setData(data.filter((item)=>item.id!==id ))
-    }
-    const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
-        { field: 'user', headerName: 'User', width: 200 , renderCell:(params)=>{
-            return (
-                <div className="userListUser">
-                    <img className="userListImg" src={params.row.avatar} alt="" />
-                    {params.row.username}
-                </div>
-            )
-        }},
-        { field: 'email', headerName: 'Email', width: 200 },
-        {
-          field: 'status',
-          headerName: 'Status',
-          width: 120,
-        },
-        {
-            field: 'transaction',
-            headerName: 'Transaction Vol',
-            width: 160,
-          },
-          {
-            field: 'action',
-            headerName: 'Action',
-            width: 150,
-            renderCell:(params)=>{
-                return(
-                    <>
-                    <Link to={"/user/"+params.row.id}>
-                    <button className="userListEdit" >Edit</button>
-                    </Link>
-                    <DeleteOutlineIcon className="userListDelete" onClick={()=>handleDelete(params.row.id)}/>
-                    </>
-                )
-            }
-          },
-      ];
+  var cookie=new Cookies()
+  var b=cookie.get('token')
+  const [a,setA]=useState([]);
+
+  useEffect(() => { 
+    axios.get('http://localhost/api/userList.php?token='+b).then(response => {
+
+  setA(response.data);
+  console.log(a)
+  
+   })
+  },[]);
+ 
+   return(
+    <div className="cont">
+      <table>
+        <thead>
+            <tr>
+          <td>id</td>
+        <td>name</td>
+        <td>fullname</td>
+        <td>email</td>
+        <td>password</td>
+        <td>address</td>
+        <td>phone</td>
+        <td>active</td>
+        <td>date</td>
+        <td>Operations</td>
+        
+        </tr>
+        </thead>
       
-    
-      
-    return(
-        <div className="userList" style={{ height: 630, width: '100%' }}>
-        <DataGrid 
-          rows={data}
-          columns={columns}
-          pageSize={5}
-          rowsPerPageOptions={[5]}
-          checkboxSelection
-          disableRowSelectionOnClick
+       {
+        a.map((x)=>{
+          return(
+            <tbody>
+              <tr className="tr">
+            <td>{x.id}</td>
+          <td>{x.name}</td>
+          <td>{x.fullname}</td>
+          <td>{x.email}</td>
+          <td>{x.password}</td>
+          <td>{x.address}</td>
+          <td>{x.phone}</td>
+          <td>{x.active}</td>
+          <td>{x.date}</td>
+          <td><a  href="javascript:void" onClick={function(event){
+            axios.get('http://localhost/api/userDelete.php?id='+x.id).then(response => {
+
+         
+         if(response.data==1){event.target.parentElement.parentElement.remove()}
           
-        />
-      </div>
-    
-    )
+             })
+
+
+          }}>Deactive</a>
+       <Link to={`/user/${x.id}/`}>Edit</Link>
+          </td>
+          </tr> 
+            </tbody>
+         
+          );
+        })
+       }
+      </table>
+    </div>
+   )
 }
 export default UserList

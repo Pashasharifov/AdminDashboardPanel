@@ -14,40 +14,54 @@ import NewUser from "./pages/newUser/NewUser";
 import ProductList from "./pages/productList/ProductList";
 import Product from "./pages/product/Product";
 import NewProduct from "./pages/newProduct/NewProduct";
+import Login from "./login/login";
+import Messages from "./messages/message";
  
  
 function App() {
   return (
    <Router>
-  <Topbar></Topbar>
+    
+ 
   <div className="container">
-    <Sidebar/>
+   
    <Switch>
-    <Route exact path="/">
-         <Home/>
+   <Route exact path="/">
+         <Login/>
+   </Route>
+   <Route  path="/home">
+       <div>  <Topbar/> <Sidebar/> </div><Home/>
    </Route>
    <Route  path="/users">
+   <div>  <Topbar/> <Sidebar/> </div>
       <UserList/>
       </Route>
       <Route  path="/user/:userId">
-      <User/>
+      <div>  <Topbar/> <Sidebar/> </div> <User/>
       </Route>
       <Route path="/newUser">
-        <NewUser/>
+      <div>  <Topbar/> <Sidebar/> </div><NewUser/>
       </Route>
 
       <Route  path="/products">
-      <ProductList/>
+      <div>  <Topbar/> <Sidebar/> </div><ProductList/>
       </Route>
       <Route  path="/product/:productId">
-      <Product/>
+      <div>  <Topbar/> <Sidebar/> </div><Product/>
       </Route>
       <Route path="/newProduct">
+      <div>  <Topbar/> <Sidebar/> </div>
       <NewProduct/>
       </Route>
+      <Route path="/messages">
+      <div>  <Topbar/> <Sidebar/> </div>
+      <Messages/>
+      </Route>
+      
+
     </Switch> 
   </div>
-   </Router>
+   </Router> 
   );
 }
 
